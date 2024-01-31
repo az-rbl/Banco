@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dynamic Form</title>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+
+            function toggleFields() {
+                let choice = document.getElementById("choice_field").value;
+                document.getElementById("option1_field").style.display = choice == "option1" ? "block" : "none";
+                document.getElementById("option2_field").style.display = choice == "option2" ? "block" : "none";
+            }
+
+            document.getElementById("choice_field").addEventListener("change", toggleFields);
+
+            toggleFields(); // to show/hide on initial load
+        });
+    </script>
+</head>
+<body>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.choice_field.label }} {{ form.choice_field(id="choice_field") }}<br>
+        <div id="option1_field" style="display:none;">
+            {{ form.option1_field.label }} {{ form.option1_field() }}<br>
+        </div>
+        <div id="option2_field" style="display:none;">
+            {{ form.option2_field.label }} {{ form.option2_field() }}<br>
+        </div>
+        {{ form.submit() }}
+    </form>
+</body>
+</html>

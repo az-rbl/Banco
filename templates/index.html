@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Mi</span> Banquito</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#">Inicio</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <h1>Saldo: {{ saldo }}</h1>
+    <div class="container">
+        <form method="post">
+            <h2>Transacciones Bancarias</h2>
+            
+            <!-- Transaction Type -->
+            <div class="form-group">
+                <label for="transactionType">Transacción:</label>
+                <select name="transactionType" id="transactionType">
+                    <option value="transferencia">Transferencia</option>
+                    <option value="deposito">Deposito</option>
+                    <option value="retiro">Retiro</option>
+                </select>
+            </div>
+
+            <!-- Amount -->
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" step="0.01">
+            </div>
+
+            <!-- Transfer to Account (only for Transfer) -->
+            <div class="form-group">
+                <label for="destino">Destino (Account Number):</label>
+                <input type="text" id="destino" name="destino">
+            </div>
+
+            <!-- Submit Button -->
+            <input type="submit" value="Aceptar" class="button">
+        </form>
+    </div>
+
+</body>
+</html>
