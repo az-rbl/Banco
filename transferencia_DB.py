@@ -1,4 +1,4 @@
-from decouple import config
+import decouple
 import psycopg2
 from psycopg2 import Error
 
@@ -6,11 +6,11 @@ from psycopg2 import Error
 def connect():
     try:
         connection = psycopg2.connect(
-            user=config("USR"),
-            password=config("PASSWORD"),  # Update with your actual password
-            host=config("HOST"),
-            port=config("PORT"),
-            database=config("DATABASE")
+            user=decouple.config("USR"),
+            password=decouple.config("PASSWORD"),  # Update with your actual password
+            host=decouple.config("HOST"),
+            port=decouple.config("PORT"),
+            database=decouple.config("DATABASE")
         )
         return connection
     except Error as e:
