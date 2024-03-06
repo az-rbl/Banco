@@ -1,5 +1,5 @@
 flask
 gunicorn
 wheel
-psycopg2-binary
+psycopg2
 dotenv
