@@ -1,16 +1,17 @@
-import decouple
+import os
 import psycopg2
 from psycopg2 import Error
+from dotenv import load_dotenv
 
 # Function to establish connection to PostgreSQL
-def connect():
+def connect(user, password, host, port, database):
     try:
         connection = psycopg2.connect(
-            user=decouple.config("USR"),
-            password=decouple.config("PASSWORD"),  # Update with your actual password
-            host=decouple.config("HOST"),
-            port=decouple.config("PORT"),
-            database=decouple.config("DATABASE")
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            database=database
         )
         return connection
     except Error as e:

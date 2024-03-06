@@ -2,4 +2,4 @@ flask
 gunicorn
 wheel
 psycopg2-binary
-decouple
+dotenv
