@@ -1,20 +1,17 @@
 from flask import Flask, request, jsonify
 from transferencia_DB import connect, deposit, withdraw, add_account, transfer
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 
 def get_db_connection():
     try:
         connection = connect(
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD'),
-            host=os.getenv('DB_HOST'),
-            port=os.getenv('DB_PORT'),
-            database=os.getenv('DB_NAME')
+            user=os.environ.get('DB_USER'),
+            password=os.environ.get('DB_PASSWORD'),
+            host=os.environ.get('DB_HOST'),
+            port=os.environ.get('DB_PORT'),
+            database=os.environ.get('DB_NAME')
         )
         return connection
     except Exception as e:
@@ -75,5 +72,3 @@ def nueva_cuenta():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-    

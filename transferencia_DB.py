@@ -1,7 +1,7 @@
 import os
 import psycopg2
 from psycopg2 import Error
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Function to establish connection to PostgreSQL
 def connect(user, password, host, port, database):
