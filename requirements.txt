@@ -2,5 +2,3 @@ flask
 gunicorn
 wheel
 psycopg2
-python-dotenv
-dotenv
