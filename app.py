@@ -7,11 +7,11 @@ app = Flask(__name__)
 def get_db_connection():
     try:
         connection = connect(
-            user=os.environ.get('DB_USER'),
-            password=os.environ.get('DB_PASSWORD'),
-            host=os.environ.get('DB_HOST'),
-            port=os.environ.get('DB_PORT'),
-            database=os.environ.get('DB_NAME')
+            user=os.environ.get('USR'),
+            password=os.environ.get('PASSWORD'),
+            host=os.environ.get('HOST'),
+            port=os.environ.get('PORT'),
+            database=os.environ.get('DATABASE')
         )
         return connection
     except Exception as e:
