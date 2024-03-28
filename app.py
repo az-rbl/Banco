@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify
 from transferencia_DB import connect, deposit, withdraw, add_account, transfer
-import os
-from dotenv import load_dotenv
+from decouple import config
 
 # Load environment variables from .env file
-load_dotenv()
+
 
 
 app = Flask(__name__)
@@ -12,11 +11,11 @@ app = Flask(__name__)
 def get_db_connection():
     try:
         connection = connect(
-            user=os.getenv('USR'),
-            password=os.getenv('PASSWORD'),
-            host=os.getenv('HOST'),
-            port=os.getenv('PORT'),
-            database=os.getenv('DATABASE')
+            user=config('USR'),
+            password=config('PASSWORD'),
+            host=config('HOST'),
+            port=config('PORT'),
+            database=config('DATABASE')
         )
         return connection
     except Exception as e:
