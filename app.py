@@ -1,17 +1,22 @@
 from flask import Flask, request, jsonify
 from transferencia_DB import connect, deposit, withdraw, add_account, transfer
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 
 app = Flask(__name__)
 
 def get_db_connection():
     try:
         connection = connect(
-            user=os.environ.get('USR'),
-            password=os.environ.get('PASSWORD'),
-            host=os.environ.get('HOST'),
-            port=os.environ.get('PORT'),
-            database=os.environ.get('DATABASE')
+            user=os.getenv('USR'),
+            password=os.getenv('PASSWORD'),
+            host=os.getenv('HOST'),
+            port=os.getenv('PORT'),
+            database=os.getenv('DATABASE')
         )
         return connection
     except Exception as e:
