@@ -6,4 +6,4 @@ class User(db.Model):
 
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True)
-    balance = db.Column(db.numeric(12,2))
+    balance = db.Column(db.Numeric(12,2))
