@@ -1,4 +1,4 @@
 venv
-DB.py
+instance/
 .env
-__pycache__
+__pycache__/

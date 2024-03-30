@@ -1,81 +1,18 @@
-from flask import Flask, request, jsonify
-from myapp.transferencia_DB import connect, deposit, withdraw, add_account, transfer
-from decouple import config
+import os
 
-# Load environment variables from .env file
+from flask import Flask 
 
+from .extensions import db
+from .routes import main
 
 def create_app():
     app = Flask(__name__)
 
-    def get_db_connection():
-        try:
-            connection = connect(
-                user=config('USR'),
-                password=config('PASSWORD'),
-                host=config('HOST'),
-                port=config('PORT'),
-                database=config('DATABASE')
-            )
-            return connection
-        except Exception as e:
-            print("Error connecting to database:", e)
-            return None
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    # postgres://prettyprinted_render_example_user:11vq6k72GmFJazhVpz3pFUko50djVZT1@dpg-ceukdhmn6mpglqdb4avg-a.oregon-postgres.render.com/prettyprinted_render_example
 
-    @app.route('/deposito', methods=['POST'])
-    def deposito():
-        data = request.get_json()
-        no_cuenta = data.get('no_cuenta')
-        cantidad = data.get('cantidad')
-        connection = get_db_connection()
-        if connection:
-            deposit(connection, no_cuenta, cantidad)
-            connection.close()
-            return jsonify({"message": "Deposited successfully"}), 200
-        else:
-            return jsonify({"message": "Error connecting to database"}), 500
+    db.init_app(app)
 
-    @app.route('/retiro', methods=['POST'])
-    def retiro():
-        data = request.get_json()
-        no_cuenta = data.get('no_cuenta')
-        cantidad = data.get('cantidad')
-        connection = get_db_connection()
-        if connection:
-            withdraw(connection, no_cuenta, cantidad)
-            connection.close()
-            return jsonify({"message": "Withdrawn successfully"}), 200
-        else:
-            return jsonify({"message": "Error connecting to database"}), 500
+    app.register_blueprint(main)
 
-    @app.route('/transferencia', methods=['POST'])
-    def transferencia():
-        data = request.get_json()
-        no_cuenta = data.get('no_cuenta')
-        cantidad = data.get('cantidad')
-        destino = data.get('destino')
-        connection = get_db_connection()
-        if connection:
-            transfer(connection, no_cuenta, destino, cantidad)
-            connection.close()
-            return jsonify({"message": "Transferred successfully"}), 200
-        else:
-            return jsonify({"message": "Error connecting to database"}), 500
-
-    @app.route('/nueva_cuenta', methods=['POST'])
-    def nueva_cuenta():
-        data = request.get_json()
-        cantidad = data.get('cantidad')
-        connection = get_db_connection()
-        if connection:
-            add_account(connection, cantidad)
-            connection.close()
-            return jsonify({"message": "Account created successfully"}), 200
-        else:
-            return jsonify({"message": "Error connecting to database"}), 500
-    
     return app
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True)
