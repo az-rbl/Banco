@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, request
+from flask import Blueprint, redirect, url_for, request, jsonify
 
 from .extensions import db
 from .models import Accounts
@@ -19,7 +19,8 @@ def new_account():
     amount = data.get('amount')
     db.session.add(Accounts(balance=amount))
     db.session.commit()
-    return redirect(url_for("main.index"))
+    return jsonify({"message": "Account created successfully"}), 200
+    
 
 
 
