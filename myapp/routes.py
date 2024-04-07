@@ -21,6 +21,15 @@ def new_account():
     db.session.commit()
     return jsonify({"message": "Account created successfully"}), 200
 
+@main.route('/accounts', methods=['GET'])
+def get_accounts():
+    accounts = Accounts.query.all()
+    resultado = []
+    for account in accounts:
+        account_datos ={'account_id': account.account_id, 'estado': account.balance}
+        resultado.append(account_datos)
+    return jsonify(resultado)
+
 @main.route('/deposit/<int:account_id>', methods=['POST'])
 def deposit(account_id):
     data = request.get_json()
