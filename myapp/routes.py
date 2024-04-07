@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, url_for, request, jsonify
-
+from flask_cors import CORS, cross_origin
 from .extensions import db
 from .models import Accounts
 from .models import User
