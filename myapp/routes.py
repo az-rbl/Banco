@@ -37,7 +37,7 @@ def get_accounts():
 def deposit(account_id):
     data = request.get_json()
     account = Accounts.query.get(account_id)
-    amount = data.get('amount')
+    amount = int(data.get('amount'))
     if account:
         account.balance += amount
         db.session.commit()
@@ -50,7 +50,7 @@ def deposit(account_id):
 def withdraw(account_id):
     data = request.get_json()
     account = Accounts.query.get(account_id)
-    amount = data.get('amount')
+    amount = int(data.get('amount'))
     if account:
         if account.balance >= amount:
             account.balance -= amount
@@ -66,7 +66,7 @@ def withdraw(account_id):
 def transfer(account_id):
     data = request.get_json()
     destination_account = Accounts.query.get(account_id)
-    amount = data.get('amount')
+    amount = int(data.get('amount'))
     origin_account_id = data.get('account_id')
     if destination_account:
         withdraw(origin_account_id)
