@@ -14,6 +14,7 @@ def index():
 
 
 @main.route('/new_account', methods=['POST'])
+@cross_origin()
 def new_account():
     data = request.get_json()
     amount = data.get('amount')
@@ -22,6 +23,7 @@ def new_account():
     return jsonify({"message": "Account created successfully"}), 200
 
 @main.route('/accounts', methods=['GET'])
+@cross_origin()
 def get_accounts():
     accounts = Accounts.query.all()
     resultado = []
@@ -31,6 +33,7 @@ def get_accounts():
     return jsonify(resultado)
 
 @main.route('/deposit/<int:account_id>', methods=['POST'])
+@cross_origin()
 def deposit(account_id):
     data = request.get_json()
     account = Accounts.query.get(account_id)
@@ -43,6 +46,7 @@ def deposit(account_id):
         return jsonify({"error": "Account not found"}), 404
     
 @main.route('/withdraw/<int:account_id>', methods=['POST'])
+@cross_origin()
 def withdraw(account_id):
     data = request.get_json()
     account = Accounts.query.get(account_id)
@@ -58,6 +62,7 @@ def withdraw(account_id):
         return jsonify({"error": "Account not found"}), 404
     
 @main.route('/transfer/<int:account_id>', methods=['POST'])
+@cross_origin()
 def transfer(account_id):
     data = request.get_json()
     destination_account = Accounts.query.get(account_id)
